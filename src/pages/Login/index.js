@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import { FaUserSecret } from "react-icons/fa";
 import authBackground from "../../assets/auth-bg.jpg";
@@ -42,6 +43,8 @@ const Input = styled.input`
     font-size: 16px;
     padding: 0 15px;
     background-color: #eee;
+    color: #333;
+    font-weight: bold;
 `;
 
 const Separator = styled.div`
@@ -49,7 +52,7 @@ const Separator = styled.div`
     position: relative;
     z-index: 1;
     color: #666;
-    margin: 20px 0;
+    margin: 40px 0;
 
     &::before {
         content: "";
@@ -82,14 +85,13 @@ const Button = styled.button`
 `;
 
 const SubmitButton = styled(Button)`
-    margin-bottom: 25px;
     background-color: hsl(207, 33%, 39%);
     color: #fff;
 `;
 
 const LoginWithGoogle = styled(Button)`
     background-color: #fff;
-    margin-top: 20px;
+    margin-bottom: 20px;
 
     img {
         width: 30px;
@@ -100,9 +102,12 @@ const LoginWithGoogle = styled(Button)`
 
 const LoginAsGuest = styled(Button)`
     background-color: #fff;
-    margin-top: 20px;
-
     span { margin-left: 10px; }
+`;
+
+const AuthLink = styled.div`
+    margin-top: 20px;
+    text-align: center;
 `;
 
 export default function Login() {
@@ -115,13 +120,16 @@ export default function Login() {
                 <SubmitButton>Login</SubmitButton>
                 <Separator><span>OR</span></Separator>
                 <LoginWithGoogle>
-                    <img src={googleLogo} alt="login with google"/>
+                    <img src={googleLogo} alt="login with google" />
                     <span>Login with Google</span>
                 </LoginWithGoogle>
                 <LoginAsGuest>
-                    <FaUserSecret size={30}/>
+                    <FaUserSecret size={30} />
                     <span>Enter as Guest</span>
                 </LoginAsGuest>
+                <AuthLink>
+                    Don't have an account? <Link to="/signup"><strong>Sign Up</strong></Link>
+                </AuthLink>
             </Form>
         </Container>
     )
