@@ -2,6 +2,8 @@ import React from 'react'
 import styled from "styled-components";
 import { FaEllipsisH } from "react-icons/fa";
 
+import Card from "./Card";
+
 const Container = styled.div`
     position: relative;
     background-color: hsl(0,0%,92%);
@@ -29,6 +31,7 @@ const ListHeader = styled.div`
     align-items: center;
     justify-content: space-between;
     padding-left: 10px;
+    margin-bottom: 10px;
 `;
 
 const ListMenu = styled.button`
@@ -44,6 +47,8 @@ const ListMenu = styled.button`
     &:hover { background-color: hsl(0,0%,82%); }
 `;
 
+const CardList = styled.div``;
+
 export default function List() {
     return (
         <Container>
@@ -51,6 +56,12 @@ export default function List() {
                 <h4>List #</h4>
                 <ListMenu><FaEllipsisH/></ListMenu>
             </ListHeader>
+            <CardList>
+                <Card/>
+                <Card/>
+                <Card/>
+                <Card/>
+            </CardList>
         </Container>
     )
 }
