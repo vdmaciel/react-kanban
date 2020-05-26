@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { 
+    requestLoginWithGoogle,
+    requestLoginWithEmailAndPassword,
+    requestLoginAnonymously
+} from "../../store/auth/actions";
 
 import { FaUserSecret } from "react-icons/fa";
 import authBackground from "../../assets/auth-bg.jpg";
@@ -111,6 +117,18 @@ const AuthLink = styled.div`
 `;
 
 export default function Login() {
+    const dispatch = useDispatch();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    function handleLoginWithGoogle(){
+        dispatch(requestLoginWithGoogle());
+    }
+
+    function handleLoginAsGuest(){
+        dispatch(requestLoginAnonymously());
+    }
+
     return (
         <Container>
             <Form>
@@ -119,11 +137,11 @@ export default function Login() {
                 <Input type="passoword" placeholder="password" />
                 <SubmitButton>Login</SubmitButton>
                 <Separator><span>OR</span></Separator>
-                <LoginWithGoogle>
+                <LoginWithGoogle onClick={handleLoginWithGoogle}>
                     <img src={googleLogo} alt="login with google" />
                     <span>Login with Google</span>
                 </LoginWithGoogle>
-                <LoginAsGuest>
+                <LoginAsGuest onClick={handleLoginAsGuest}>
                     <FaUserSecret size={30} />
                     <span>Enter as Guest</span>
                 </LoginAsGuest>

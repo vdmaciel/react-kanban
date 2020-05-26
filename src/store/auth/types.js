@@ -1,0 +1,5 @@
+export default {
+    LOGIN: "LOGIN",
+    SIGN_OUT: "SIGN_OUT",
+    AUTHENTICATING: "AUTHENTICATING"
+}

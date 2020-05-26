@@ -7,6 +7,21 @@ const INITIAL_STATE = {
 
 export default function(state = INITIAL_STATE, action){
     switch(action.type){
+        case types.LOGIN:
+            return {
+                authenticated: true,
+                loading: false
+            } 
+        case types.SIGN_OUT:
+            return {
+                authenticated: false,
+                loading: false
+            }
+        case types.AUTHENTICATING:
+            return {
+                authenticated: false,
+                loading: true
+            }
         default:
             return state;
     }
