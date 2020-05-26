@@ -129,13 +129,17 @@ export default function Login() {
         dispatch(requestLoginAnonymously());
     }
 
+    function handleLogin(){
+        dispatch(requestLoginWithEmailAndPassword(email, password));
+    }
+
     return (
         <Container>
             <Form>
                 <Title>Login</Title>
                 <Input type="email" placeholder="e-mail" />
                 <Input type="passoword" placeholder="password" />
-                <SubmitButton>Login</SubmitButton>
+                <SubmitButton onClick={handleLogin}>Login</SubmitButton>
                 <Separator><span>OR</span></Separator>
                 <LoginWithGoogle onClick={handleLoginWithGoogle}>
                     <img src={googleLogo} alt="login with google" />

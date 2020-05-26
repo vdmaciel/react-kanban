@@ -2,6 +2,8 @@ import React from 'react'
 import styled from "styled-components";
 import { FaTrash } from "react-icons/fa";
 
+import List from "../../components/List";
+
 const Container = styled.div`
     height: 100%;
     background-color: hsl(207,70%,98%);
@@ -32,6 +34,14 @@ const DeleteButton = styled.button`
     span { margin-left: 10px; }
 `;
 
+const Content = styled.div`
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+    height: calc(100% - 60px);
+    overflow-x: scroll;
+`;
+
 export default function Board() {
     return (
         <Container>
@@ -42,6 +52,13 @@ export default function Board() {
                     <span>Delete Board</span>
                 </DeleteButton>
             </BoardHeader>
+            <Content>
+                <List />
+                <List />
+                <List />
+                <List />
+                <List />
+            </Content>
         </Container>
     )
 }
