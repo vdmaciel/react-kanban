@@ -54,7 +54,7 @@ const LogOutButton = styled.button`
 export default function Header() {
     const dispatch = useDispatch();
 
-    function handleSignOut(){
+    function handleSignOut() {
         dispatch(requestSignOut());
     }
 

@@ -8,11 +8,19 @@ const Container = styled.div`
     height: 100%;
 `;
 
+const Content = styled.div`
+    height: calc(100% - 60px);
+    max-width: 1200px;
+    margin: 0 auto;
+`;
+
 export default function Default({ children }) {
     return (
         <Container>
             <Header />
-            { children }
+            <Content>
+                {children}
+            </Content>
         </Container>
     )
 }
