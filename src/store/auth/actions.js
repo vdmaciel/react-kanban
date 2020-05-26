@@ -1,5 +1,6 @@
 import types from "./types";
 import firebase from "../../services/firebase";
+import history from  "../../services/history";
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 
@@ -23,7 +24,10 @@ export function requestLoginWithEmailAndPassword(email, password) {
         firebase
             .auth()
             .signInWithEmailAndPassword(email, password)
-            .then(() => dispatch(login()))
+            .then(() => {
+                dispatch(login())
+                history.replace("/home");
+            })
     }
 }
 
@@ -33,7 +37,10 @@ export function requestLoginWithGoogle(){
         firebase
             .auth()
             .signInWithPopup(googleProvider)
-            .then(() => dispatch(login()))
+            .then(() => {
+                dispatch(login())
+                history.replace("/home");
+            })
     }
 }
 
@@ -43,7 +50,10 @@ export function requestLoginAnonymously() {
         firebase
             .auth()
             .signInAnonymously()
-            .then(() => dispatch(login()))
+            .then(() => {
+                dispatch(login())
+                history.replace("/home");
+            })
     }
 }
 
@@ -55,7 +65,11 @@ export function requestSignUp(username, email, password){
             .then(response => {
                 response.user.updateProfile({
                     displayName: username
-                }).then(() => dispatch(login))
+                })
+                .then(() => {
+                    dispatch(login())
+                    history.replace("/home");
+                })
             })
     } 
 }
@@ -65,8 +79,12 @@ export function verifyAuth() {
       dispatch({ type: types.AUTHENTICATING });
       
       firebase.auth().onAuthStateChanged(user => {
-        if (user) dispatch(login());
-        else dispatch(signOut());
+        if (user)  {
+            dispatch(login())
+            history.replace("/home");
+        } else {
+            dispatch(signOut());
+        }
       });
     };
   }
