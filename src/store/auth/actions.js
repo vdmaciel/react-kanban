@@ -78,6 +78,15 @@ export function requestSignUp(username, email, password){
     } 
 }
 
+export function requestSignOut(){
+    return dispatch => {
+        firebase
+            .auth()
+            .signOut()
+            .then(() => dispatch(signOut()));
+    }
+}
+
 export function verifyAuth() {
     return dispatch => {
       dispatch({ type: AUTHENTICATING });

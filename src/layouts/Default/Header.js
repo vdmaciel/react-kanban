@@ -1,6 +1,10 @@
 import React from 'react'
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+
 import kanbanLogo from "../../assets/kanban-logo.png";
+import { requestSignOut } from "../../store/auth/actions";
+
 
 const Container = styled.div`
     height: 60px;
@@ -48,6 +52,12 @@ const LogOutButton = styled.button`
 `;
 
 export default function Header() {
+    const dispatch = useDispatch();
+
+    function handleSignOut(){
+        dispatch(requestSignOut());
+    }
+
     return (
         <Container>
             <Content>
@@ -55,7 +65,7 @@ export default function Header() {
                     <img src={kanbanLogo} alt="React Kanban" />
                     <span>React Kanban</span>
                 </Logo>
-                <LogOutButton>Log Out</LogOutButton>
+                <LogOutButton onClick={handleSignOut}>Log Out</LogOutButton>
             </Content>
         </Container>
     )
