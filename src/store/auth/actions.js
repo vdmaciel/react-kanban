@@ -1,26 +1,30 @@
-import types from "./types";
 import firebase from "../../services/firebase";
 import history from  "../../services/history";
+import { 
+    LOGIN, 
+    SIGN_OUT, 
+    AUTHENTICATING
+} from "./types";
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 
 export function login() {
     const user = firebase.auth().currentUser;
     return {
-        type: types.LOGIN,
-        user
+        type: LOGIN,
+        payload: { user }
     }
 }
 
 export function signOut() {
     return {
-        type: types.SIGN_OUT
+        type: SIGN_OUT
     }
 }
 
 export function requestLoginWithEmailAndPassword(email, password) {
     return dispatch => {
-        dispatch({ type: types.AUTHENTICATING });
+        dispatch({ type: AUTHENTICATING });
         firebase
             .auth()
             .signInWithEmailAndPassword(email, password)
@@ -33,7 +37,7 @@ export function requestLoginWithEmailAndPassword(email, password) {
 
 export function requestLoginWithGoogle(){
     return dispatch => {
-        dispatch({ type: types.AUTHENTICATING });
+        dispatch({ type: AUTHENTICATING });
         firebase
             .auth()
             .signInWithPopup(googleProvider)
@@ -46,7 +50,7 @@ export function requestLoginWithGoogle(){
 
 export function requestLoginAnonymously() {
     return dispatch => {
-        dispatch({ type: types.AUTHENTICATING });
+        dispatch({ type: AUTHENTICATING });
         firebase
             .auth()
             .signInAnonymously()
@@ -76,7 +80,7 @@ export function requestSignUp(username, email, password){
 
 export function verifyAuth() {
     return dispatch => {
-      dispatch({ type: types.AUTHENTICATING });
+      dispatch({ type: AUTHENTICATING });
       
       firebase.auth().onAuthStateChanged(user => {
         if (user)  {

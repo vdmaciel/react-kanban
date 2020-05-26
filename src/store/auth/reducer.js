@@ -1,4 +1,8 @@
-import types from "./types";
+import {
+    LOGIN,
+    SIGN_OUT,
+    AUTHENTICATING
+} from "./types";
 
 const INITIAL_STATE = {
     authenticated: false,
@@ -7,17 +11,17 @@ const INITIAL_STATE = {
 
 export default function(state = INITIAL_STATE, action){
     switch(action.type){
-        case types.LOGIN:
+        case LOGIN:
             return {
                 authenticated: true,
                 loading: false
             } 
-        case types.SIGN_OUT:
+        case SIGN_OUT:
             return {
                 authenticated: false,
                 loading: false
             }
-        case types.AUTHENTICATING:
+        case AUTHENTICATING:
             return {
                 authenticated: false,
                 loading: true
