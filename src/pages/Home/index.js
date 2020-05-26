@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
 
+import history from "../../services/history";
+
 const Container = styled.div`
     height: 100%;
     padding: 15px;
@@ -36,7 +38,7 @@ export default function Home() {
         <Container>
             <Title>Boards</Title>
             <BoardList>
-                <BoardItem>
+                <BoardItem onClick={() => history.push("/board")}>
                     <h3>Board</h3>
                 </BoardItem>
                 <BoardItem>

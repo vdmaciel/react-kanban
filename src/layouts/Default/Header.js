@@ -10,12 +10,6 @@ const Container = styled.div`
     height: 60px;
     border-bottom: 1px solid #ccc;
     width: 100%;
-`;
-
-const Content = styled.div`
-    height: 60px;
-    max-width: 1200px;
-    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -60,13 +54,11 @@ export default function Header() {
 
     return (
         <Container>
-            <Content>
-                <Logo>
-                    <img src={kanbanLogo} alt="React Kanban" />
-                    <span>React Kanban</span>
-                </Logo>
-                <LogOutButton onClick={handleSignOut}>Log Out</LogOutButton>
-            </Content>
+            <Logo>
+                <img src={kanbanLogo} alt="React Kanban" />
+                <span>React Kanban</span>
+            </Logo>
+            <LogOutButton onClick={handleSignOut}>Log Out</LogOutButton>
         </Container>
     )
 }

@@ -10,8 +10,7 @@ const Container = styled.div`
 
 const Content = styled.div`
     height: calc(100% - 60px);
-    max-width: 1200px;
-    margin: 0 auto;
+    background-color: hsl(207,70%,98%);
 `;
 
 export default function Default({ children }) {

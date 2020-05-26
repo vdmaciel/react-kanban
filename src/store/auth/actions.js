@@ -93,8 +93,7 @@ export function verifyAuth() {
       
       firebase.auth().onAuthStateChanged(user => {
         if (user)  {
-            dispatch(login())
-            history.replace("/home");
+            dispatch(login());
         } else {
             dispatch(signOut());
         }
