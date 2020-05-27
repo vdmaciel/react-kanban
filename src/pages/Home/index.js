@@ -44,25 +44,19 @@ export default function Home() {
         dispatch(fetchUserBoards());
     }, [])
 
+    function navigateToBoard(id){
+        history.push("/board/" + id);
+    }
+
     return (
         <Container>
             <Title>Boards</Title>
             <BoardList>
-                <BoardItem onClick={() => history.push("/board")}>
-                    <h3>Board</h3>
-                </BoardItem>
-                <BoardItem>
-                    <h3>Board</h3>
-                </BoardItem>
-                <BoardItem>
-                    <h3>Board</h3>
-                </BoardItem>
-                <BoardItem>
-                    <h3>Board</h3>
-                </BoardItem>
-                <BoardItem>
-                    <h3>Board</h3>
-                </BoardItem>
+                {boards.map(board => (
+                    <BoardItem onClick={() => navigateToBoard(board.id)}>
+                        <h3>{board.name}</h3>
+                    </BoardItem>
+                ))}
                 <BoardComposer/>
             </BoardList>
         </Container>
