@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FaTrash } from "react-icons/fa";
 
 import history from "../../services/history";
 import { deleteBoard } from "../../store/profile/actions";
+import { fetchBoard } from "../../store/board/actions";
 import List from "../../components/List";
+import FullPageSpinner from "../../components/FullPageSpinner";
 
 const Container = styled.div`
     height: 100%;
@@ -47,13 +49,18 @@ const Content = styled.div`
 `;
 
 export default function Board() {
+    const board = useSelector(state => state.board);
     const dispatch = useDispatch();
     const { boardId } = useParams();
 
-    function handleDelete(){
+    function handleDelete() {
         dispatch(deleteBoard(boardId));
         history.replace("/home");
     }
+
+    useEffect(() => {
+        dispatch(fetchBoard(boardId));
+    }, []);
 
     return (
         <Container>
@@ -65,11 +72,10 @@ export default function Board() {
                 </DeleteButton>
             </BoardHeader>
             <Content>
-                <List />
-                <List />
-                <List />
-                <List />
-                <List />
+                {!board && <FullPageSpinner />}
+                {board && board.lists.map(list => (
+                    <List />
+                ))}
             </Content>
         </Container>
     )
