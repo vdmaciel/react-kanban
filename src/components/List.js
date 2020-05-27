@@ -39,18 +39,17 @@ const ListMenu = styled.button`
 
 const CardList = styled.div``;
 
-export default function List() {
+export default function List({ listData }) {
     return (
         <Container>
             <ListHeader>
-                <h4>List #</h4>
+                <h4>{listData.name}</h4>
                 <ListMenu><FaEllipsisH/></ListMenu>
             </ListHeader>
             <CardList>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
+                {listData.cards.map(card => (
+                    <Card key={card.id} cardData={card}/>
+                ))}
             </CardList>
         </Container>
     )
