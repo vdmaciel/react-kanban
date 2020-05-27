@@ -7,8 +7,10 @@ import { FaTrash } from "react-icons/fa";
 import history from "../../services/history";
 import { deleteBoard } from "../../store/profile/actions";
 import { fetchBoard } from "../../store/board/actions";
+
 import List from "../../components/List";
 import FullPageSpinner from "../../components/FullPageSpinner";
+import ListComposer from "./ListComposer";
 
 const Container = styled.div`
     height: 100%;
@@ -45,7 +47,7 @@ const Content = styled.div`
     align-items: flex-start;
     padding: 10px;
     height: calc(100% - 60px);
-    overflow-x: scroll;
+    overflow-x: auto;
 `;
 
 export default function Board() {
@@ -62,6 +64,8 @@ export default function Board() {
         dispatch(fetchBoard(boardId));
     }, []);
 
+    if (!board) return <FullPageSpinner />
+
     return (
         <Container>
             <BoardHeader>
@@ -72,10 +76,10 @@ export default function Board() {
                 </DeleteButton>
             </BoardHeader>
             <Content>
-                {!board && <FullPageSpinner />}
-                {board && board.lists.map(list => (
-                    <List />
+                {board.lists.map(list => (
+                    <List key={list.id} listData={list} />
                 ))}
+                <ListComposer />
             </Content>
         </Container>
     )

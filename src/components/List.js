@@ -13,16 +13,6 @@ const Container = styled.div`
     margin-right: 10px;
     border-radius: 4px;
     border-bottom: 2px solid #aaa;
-
-    &:last-child {
-        &::before {
-            position: absolute;
-            content: "";
-            width: 10px;
-            height: 10px;
-            right: -10px;
-        }
-    }
 `;
 
 const ListHeader = styled.div`

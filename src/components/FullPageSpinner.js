@@ -21,13 +21,24 @@ const load = keyframes`
 `;
 
 const Container = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+const Spinner = styled.div`
     background: #265277;
     animation: ${load} 1s infinite ease-in-out;
     width: 1em;
     height: 4em;
     color: #265277;
     text-indent: -9999em;
-    margin: 88px auto;
+    margin: auto;
     position: relative;
     font-size: 11px;
     transform: translateZ(0);
@@ -58,5 +69,5 @@ const Container = styled.div`
 `;
 
 export default function FullPageSpinner() {
-    return <Container/>
+    return <Container><Spinner /></Container>
 }
