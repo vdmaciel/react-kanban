@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
-
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserBoards } from "../../store/profile/actions";
 import history from "../../services/history";
+
+import BoardComposer from "./BoardComposer";
 
 const Container = styled.div`
     height: 100%;
@@ -34,6 +37,13 @@ const BoardItem = styled.button`
 
 
 export default function Home() {
+    const boards = useSelector(state => state.profile.boards);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchUserBoards());
+    }, [])
+
     return (
         <Container>
             <Title>Boards</Title>
@@ -53,9 +63,7 @@ export default function Home() {
                 <BoardItem>
                     <h3>Board</h3>
                 </BoardItem>
-                <BoardItem>
-                    <h3>Board</h3>
-                </BoardItem>
+                <BoardComposer/>
             </BoardList>
         </Container>
     )

@@ -30,5 +30,10 @@ export default createGlobalStyle`
       cursor: pointer;
       &:hover { opacity: 0.9 }
       &:active { opacity: 0.8 }
+      &:disabled {
+        background-color: #ccc;
+        color: #555;
+        cursor: not-allowed;
+      }
     }
 `;

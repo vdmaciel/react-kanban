@@ -1,4 +1,3 @@
-export default {
-    SET_CURRENT_USER: "SET_CURRENT_USER",
-    SET_USER_BOARDS: "SET_USER_BOARDS"
-}
+export const SET_USER_BOARDS = "SET_USER_BOARDS";
+export const CREATE_BOARD = "CREATE_BOARD";
+export const DELETE_BOARD = "DELETE_BOARD";
