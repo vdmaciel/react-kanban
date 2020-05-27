@@ -42,3 +42,17 @@ export function createBoard(name) {
         })
     }
 }
+
+export function deleteBoard(boardId){
+    return dispatch => {
+        firebase.database().ref("/boards")
+            .child(boardId)
+            .remove()
+            .then(() => {
+                dispatch({
+                    type: DELETE_BOARD,
+                    payload: { boardId }
+                })
+            })
+    }
+}

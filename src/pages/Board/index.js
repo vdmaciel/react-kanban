@@ -1,7 +1,11 @@
 import React from 'react'
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { FaTrash } from "react-icons/fa";
 
+import history from "../../services/history";
+import { deleteBoard } from "../../store/profile/actions";
 import List from "../../components/List";
 
 const Container = styled.div`
@@ -43,11 +47,19 @@ const Content = styled.div`
 `;
 
 export default function Board() {
+    const dispatch = useDispatch();
+    const { boardId } = useParams();
+
+    function handleDelete(){
+        dispatch(deleteBoard(boardId));
+        history.replace("/home");
+    }
+
     return (
         <Container>
             <BoardHeader>
                 <Title>Board</Title>
-                <DeleteButton>
+                <DeleteButton onClick={handleDelete}>
                     <FaTrash />
                     <span>Delete Board</span>
                 </DeleteButton>

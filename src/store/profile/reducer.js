@@ -1,7 +1,9 @@
+import produce from "immer";
 import { LOGIN } from "../auth/types";
 import {
     CREATE_BOARD,
-    SET_USER_BOARDS
+    SET_USER_BOARDS,
+    DELETE_BOARD
 } from "./types";
 
 const INITIAL_STATE = {
@@ -9,8 +11,8 @@ const INITIAL_STATE = {
     boards: []
 }
 
-export default function(state = INITIAL_STATE, action){
-    switch(action.type){
+export default produce((state = INITIAL_STATE, action) => {
+    switch (action.type) {
         case LOGIN:
             return {
                 ...state,
@@ -29,7 +31,12 @@ export default function(state = INITIAL_STATE, action){
                     action.payload.board
                 ]
             }
+        case DELETE_BOARD:
+            return {
+                ...state,
+                boards: state.boards.filter(board => board.id !== action.payload.boardId)
+            }
         default:
             return state;
     }
-}
+})

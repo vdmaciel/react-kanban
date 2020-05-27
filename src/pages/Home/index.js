@@ -53,7 +53,7 @@ export default function Home() {
             <Title>Boards</Title>
             <BoardList>
                 {boards.map(board => (
-                    <BoardItem onClick={() => navigateToBoard(board.id)}>
+                    <BoardItem  key={board.id} onClick={() => navigateToBoard(board.id)}>
                         <h3>{board.name}</h3>
                     </BoardItem>
                 ))}
