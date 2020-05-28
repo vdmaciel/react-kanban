@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from "styled-components";
+import { Draggable } from "react-beautiful-dnd";
 
 import { FaEdit } from "react-icons/fa";
 
@@ -37,11 +38,30 @@ const Container = styled.div`
 
 
 
-export default function Card() {
-    return (
-        <Container>
-            <p>Card Text</p>
-            <EditButton><FaEdit/></EditButton>
-        </Container>
-    )
+export default class Card extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        const { cardData, cardIndex } = this.props;
+
+        return (
+            <Draggable draggableId={cardData.id} index={cardIndex}>
+                {provided => (
+                    <Container
+                        ref={ref => {
+                            provided.innerRef(ref);
+                            this.ref = ref;
+                        }}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                    >
+                        <p>Card Text</p>
+                        <EditButton><FaEdit /></EditButton>
+                    </Container>
+                )}
+            </Draggable>
+        )
+    }
 }

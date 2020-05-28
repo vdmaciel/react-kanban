@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from "styled-components";
 import { FaEllipsisH } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { Draggable } from "react-beautiful-dnd";
+import { Draggable, Droppable } from "react-beautiful-dnd";
 
 import { deleteList } from "../../store/board/actions";
 
@@ -94,11 +94,16 @@ export default function List({ listData, listIndex }) {
                             </Menu>
                         )}
                     </ListHeader>
-                    <CardList>
-                        {listData.cards.map(card => (
-                            <Card key={card.id} cardData={card} />
-                        ))}
-                    </CardList>
+                    <Droppable droppableId={listData.id} type="CARD">
+                        {provided => (
+                            <CardList ref={provided.innerRef}>
+                                {listData.cards.map((card, index) => (
+                                    <Card key={card.id} cardData={card} cardIndex={index} />
+                                ))}
+                                {provided.placeholder}
+                            </CardList>
+                        )}
+                    </Droppable>
                     <CardComposer listId={listData.id} />
                 </Container>
             )}

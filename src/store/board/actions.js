@@ -1,3 +1,4 @@
+import { uuid } from "uuidv4";
 import firebase from "../../services/firebase";
 import {
     SET_CURRENT_BOARD,
@@ -33,40 +34,32 @@ export function fetchBoard(boardId) {
 
 export function createList(name) {
     return (dispatch, getState) => {
-        const boardId = getState().board.id;
-        const collectionRef = firebase.database().ref(`boards/${boardId}/lists`);
-        const listRef = collectionRef.push();
-        const listId = listRef.key;
         const newList = {
-            id: listId,
+            id: uuid(),
             name: name,
             cards: []
         }
-        listRef.set(newList)
-            .then(() => {
-                dispatch({
-                    type: CREATE_LIST,
-                    payload: { list: newList }
-                })
-            })
-    }
-}
-
-export function deleteList(listId){
-    return (dispatch, getState) => {
-        const boardId = getState().board.id;
-        const collectionRef = firebase.database().ref(`boards/${boardId}/lists`);
-        const listRef = collectionRef.child(listId);
-        listRef.remove().then(() => {
-            dispatch({
-                type: DELETE_LIST,
-                payload: { listId }
-            })
+        dispatch({
+            type: CREATE_LIST,
+            payload: { list: newList }
         })
+        const board = getState().board;
+        firebase.database().ref("/boards").child(board.id).set(board);
     }
 }
 
-export function moveList(originListIndex, targetListIndex){
+export function deleteList(listId) {
+    return (dispatch, getState) => {
+        dispatch({
+            type: DELETE_LIST,
+            payload: { listId }
+        })
+        const board = getState().board;
+        firebase.database().ref("/boards").child(board.id).set(board);
+    }
+}
+
+export function moveList(originListIndex, targetListIndex) {
     return (dispatch, getState) => {
         dispatch({
             type: MOVE_LIST,
@@ -82,24 +75,18 @@ export function moveList(originListIndex, targetListIndex){
 
 export function createCard(text, listId) {
     return (dispatch, getState) => {
-        const boardId = getState().board.id;
-        const collectionRef = firebase.database().ref(`boards/${boardId}/lists/${listId}/cards`);
-        const cardRef = collectionRef.push();
-        const cardId = cardRef.key;
         const newCard = {
-            id: cardId,
+            id: uuid(),
             text: text
         }
-
-        cardRef.set(newCard)
-            .then(() => {
-                dispatch({
-                    type: CREATE_CARD,
-                    payload: { 
-                        card: newCard,
-                        listId: listId
-                    }
-                })
-            })
+        dispatch({
+            type: CREATE_CARD,
+            payload: {
+                card: newCard,
+                listId: listId
+            }
+        })
+        const board = getState().board;
+        firebase.database().ref("/boards").child(board.id).set(board);
     }
 }
