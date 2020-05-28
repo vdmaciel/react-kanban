@@ -45,7 +45,6 @@ export default class Card extends React.Component {
 
     render() {
         const { cardData, cardIndex } = this.props;
-
         return (
             <Draggable draggableId={cardData.id} index={cardIndex}>
                 {provided => (

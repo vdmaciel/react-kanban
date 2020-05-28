@@ -42,7 +42,9 @@ const MenuButton = styled.button`
     &:hover { background-color: hsl(0,0%,82%); }
 `;
 
-const CardList = styled.div``;
+const CardList = styled.div`
+    padding: 5px 0;
+`;
 
 const Menu = styled.ul`
     position: absolute;

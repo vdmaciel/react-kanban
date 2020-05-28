@@ -7,7 +7,7 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import history from "../../services/history";
 import { deleteBoard } from "../../store/profile/actions";
-import { fetchBoard, moveList } from "../../store/board/actions";
+import { fetchBoard, moveList, moveCard } from "../../store/board/actions";
 
 import List from "../../components/List";
 import FullPageSpinner from "../../components/FullPageSpinner";
@@ -75,6 +75,20 @@ export default function Board() {
             if(source.index !== destination.index){
                 dispatch(moveList(source.index, destination.index));
             }
+        }
+
+        if(type === "CARD"){
+            if(
+                destination.droppableId === source.droppableId &&
+                destination.index === source.index
+            ) return;
+
+            dispatch(moveCard(
+                source.droppableId,
+                destination.droppableId,
+                source.index,
+                destination.index
+            ))
         }
     }
 
