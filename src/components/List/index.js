@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from "styled-components";
 import { FaEllipsisH } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+
+import { deleteList } from "../../store/board/actions";
 
 import Card from "../Card";
 import CardComposer from "./CardComposer";
@@ -25,7 +28,7 @@ const ListHeader = styled.div`
     margin-bottom: 10px;
 `;
 
-const ListMenu = styled.button`
+const MenuButton = styled.button`
     height: 30px;
     width: 30px;
     border: none;
@@ -40,16 +43,53 @@ const ListMenu = styled.button`
 
 const CardList = styled.div``;
 
+const Menu = styled.ul`
+    position: absolute;
+    background-color: #fff;
+    padding: 5px;
+    right: 10px;
+    top: 40px;
+    z-index: 5;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 200px;
+
+    li {
+        padding: 5px;
+        border-radius: 3px;
+        cursor: pointer;
+        &:hover { background-color: #ddd; }
+    }
+`;
+
 export default function List({ listData }) {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const dispatch = useDispatch();
+
+    function toggleMenu() {
+        setIsMenuOpen(!isMenuOpen);
+    }
+
+    function handleDeleteList(){
+        dispatch(deleteList(listData.id));
+    }
+
     return (
         <Container>
             <ListHeader>
                 <h4>{listData.name}</h4>
-                <ListMenu><FaEllipsisH/></ListMenu>
+                <MenuButton onClick={toggleMenu}>
+                    <FaEllipsisH />
+                </MenuButton>
+                {isMenuOpen && (
+                    <Menu>
+                        <li onClick={handleDeleteList}>Delete list</li>
+                    </Menu>
+                )}
             </ListHeader>
             <CardList>
                 {listData.cards.map(card => (
-                    <Card key={card.id} cardData={card}/>
+                    <Card key={card.id} cardData={card} />
                 ))}
             </CardList>
             <CardComposer listId={listData.id} />

@@ -2,6 +2,7 @@ import firebase from "../../services/firebase";
 import {
     SET_CURRENT_BOARD,
     CREATE_LIST,
+    DELETE_LIST,
     CREATE_CARD,
 } from "./types";
 
@@ -47,6 +48,20 @@ export function createList(name) {
                     payload: { list: newList }
                 })
             })
+    }
+}
+
+export function deleteList(listId){
+    return (dispatch, getState) => {
+        const boardId = getState().board.id;
+        const collectionRef = firebase.database().ref(`boards/${boardId}/lists`);
+        const listRef = collectionRef.child(listId);
+        listRef.remove().then(() => {
+            dispatch({
+                type: DELETE_LIST,
+                payload: { listId }
+            })
+        })
     }
 }
 
