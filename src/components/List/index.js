@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from "styled-components";
 import { FaEllipsisH } from "react-icons/fa";
 import { useDispatch } from "react-redux";
+import { Draggable } from "react-beautiful-dnd";
 
 import { deleteList } from "../../store/board/actions";
 
@@ -62,7 +63,7 @@ const Menu = styled.ul`
     }
 `;
 
-export default function List({ listData }) {
+export default function List({ listData, listIndex }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const dispatch = useDispatch();
 
@@ -70,29 +71,37 @@ export default function List({ listData }) {
         setIsMenuOpen(!isMenuOpen);
     }
 
-    function handleDeleteList(){
+    function handleDeleteList() {
         dispatch(deleteList(listData.id));
     }
 
     return (
-        <Container>
-            <ListHeader>
-                <h4>{listData.name}</h4>
-                <MenuButton onClick={toggleMenu}>
-                    <FaEllipsisH />
-                </MenuButton>
-                {isMenuOpen && (
-                    <Menu>
-                        <li onClick={handleDeleteList}>Delete list</li>
-                    </Menu>
-                )}
-            </ListHeader>
-            <CardList>
-                {listData.cards.map(card => (
-                    <Card key={card.id} cardData={card} />
-                ))}
-            </CardList>
-            <CardComposer listId={listData.id} />
-        </Container>
+        <Draggable draggableId={listData.id} index={listIndex}>
+            {provided => (
+                <Container
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                >
+                    <ListHeader>
+                        <h4>{listData.name}</h4>
+                        <MenuButton onClick={toggleMenu}>
+                            <FaEllipsisH />
+                        </MenuButton>
+                        {isMenuOpen && (
+                            <Menu>
+                                <li onClick={handleDeleteList}>Delete list</li>
+                            </Menu>
+                        )}
+                    </ListHeader>
+                    <CardList>
+                        {listData.cards.map(card => (
+                            <Card key={card.id} cardData={card} />
+                        ))}
+                    </CardList>
+                    <CardComposer listId={listData.id} />
+                </Container>
+            )}
+        </Draggable>
     )
 }

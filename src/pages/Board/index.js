@@ -3,10 +3,11 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FaTrash } from "react-icons/fa";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import history from "../../services/history";
 import { deleteBoard } from "../../store/profile/actions";
-import { fetchBoard } from "../../store/board/actions";
+import { fetchBoard, moveList } from "../../store/board/actions";
 
 import List from "../../components/List";
 import FullPageSpinner from "../../components/FullPageSpinner";
@@ -50,6 +51,11 @@ const Content = styled.div`
     overflow-x: auto;
 `;
 
+const ListWrapper = styled.div`
+    display: flex;
+    align-items: flex-start;
+`;
+
 export default function Board() {
     const board = useSelector(state => state.board);
     const dispatch = useDispatch();
@@ -60,6 +66,18 @@ export default function Board() {
         history.replace("/home");
     }
 
+    function onDragEnd(result){
+        const { destination, source, type } = result;
+
+        if(!destination) return;
+
+        if(type === "LIST") {
+            if(source.index !== destination.index){
+                dispatch(moveList(source.index, destination.index));
+            }
+        }
+    }
+
     useEffect(() => {
         dispatch(fetchBoard(boardId));
     }, []);
@@ -67,20 +85,32 @@ export default function Board() {
     if (!board) return <FullPageSpinner />
 
     return (
-        <Container>
-            <BoardHeader>
-                <Title>Board</Title>
-                <DeleteButton onClick={handleDelete}>
-                    <FaTrash />
-                    <span>Delete Board</span>
-                </DeleteButton>
-            </BoardHeader>
-            <Content>
-                {board.lists.map(list => (
-                    <List key={list.id} listData={list} />
-                ))}
-                <ListComposer />
-            </Content>
-        </Container>
+        <DragDropContext onDragEnd={onDragEnd}>
+            <Container>
+                <BoardHeader>
+                    <Title>Board</Title>
+                    <DeleteButton onClick={handleDelete}>
+                        <FaTrash />
+                        <span>Delete Board</span>
+                    </DeleteButton>
+                </BoardHeader>
+                <Content>
+                    <Droppable droppableId={boardId} type="LIST" direction="horizontal">
+                        {provided => (
+                            <ListWrapper
+                                {...provided.droppableProps}
+                                ref={provided.innerRef}
+                            >
+                                {board.lists.map((list, listIndex) => (
+                                    <List key={list.id} listData={list} listIndex={listIndex} />
+                                ))}
+                                {provided.placeholder}
+                            </ListWrapper>
+                        )}
+                    </Droppable>
+                    <ListComposer />
+                </Content>
+            </Container>
+        </DragDropContext>
     )
 }

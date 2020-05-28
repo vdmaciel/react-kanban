@@ -4,6 +4,7 @@ import {
     CREATE_LIST,
     DELETE_LIST,
     CREATE_CARD,
+    MOVE_LIST,
 } from "./types";
 
 export function fetchBoard(boardId) {
@@ -62,6 +63,20 @@ export function deleteList(listId){
                 payload: { listId }
             })
         })
+    }
+}
+
+export function moveList(originListIndex, targetListIndex){
+    return (dispatch, getState) => {
+        dispatch({
+            type: MOVE_LIST,
+            payload: {
+                originListIndex,
+                targetListIndex
+            }
+        })
+        const board = getState().board;
+        firebase.database().ref("/boards").child(board.id).set(board);
     }
 }
 
