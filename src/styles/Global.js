@@ -14,7 +14,7 @@ export default createGlobalStyle`
       height: 100%;
     }
 
-    body {
+    body, input, textarea {
       font-family: Roboto, sans-serif;
     }
 

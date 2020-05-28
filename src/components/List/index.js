@@ -2,7 +2,8 @@ import React from 'react'
 import styled from "styled-components";
 import { FaEllipsisH } from "react-icons/fa";
 
-import Card from "./Card";
+import Card from "../Card";
+import CardComposer from "./CardComposer";
 
 const Container = styled.div`
     position: relative;
@@ -51,6 +52,7 @@ export default function List({ listData }) {
                     <Card key={card.id} cardData={card}/>
                 ))}
             </CardList>
+            <CardComposer listId={listData.id} />
         </Container>
     )
 }

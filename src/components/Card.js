@@ -28,8 +28,7 @@ const Container = styled.div`
     padding: 10px;
     border-radius: 4px;
     border-bottom: 1px solid #666;
-    
-    &:nth-child(n+2){ margin-top: 10px; }
+    margin-bottom: 10px;
 
     &:hover { 
         ${EditButton}{ color: #666; }

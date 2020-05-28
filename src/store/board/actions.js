@@ -1,21 +1,22 @@
 import firebase from "../../services/firebase";
 import {
     SET_CURRENT_BOARD,
-    CREATE_LIST
+    CREATE_LIST,
+    CREATE_CARD,
 } from "./types";
 
-export function fetchBoard(boardId){
+export function fetchBoard(boardId) {
     return dispatch => {
         firebase.database().ref("/boards")
             .child(boardId)
             .once("value")
             .then(snap => {
                 const board = snap.val();
-                if(!board.lists) board.lists = [];
+                if (!board.lists) board.lists = [];
 
                 //converts list and card objects into arrays
                 board.lists = Object.values(board.lists).map(list => {
-                    if(!list.cards) list.cards = [];
+                    if (!list.cards) list.cards = [];
                     list.cards = Object.values(list.cards);
                     return list;
                 })
@@ -28,7 +29,7 @@ export function fetchBoard(boardId){
     }
 }
 
-export function createList(name){
+export function createList(name) {
     return (dispatch, getState) => {
         const boardId = getState().board.id;
         const collectionRef = firebase.database().ref(`boards/${boardId}/lists`);
@@ -44,6 +45,30 @@ export function createList(name){
                 dispatch({
                     type: CREATE_LIST,
                     payload: { list: newList }
+                })
+            })
+    }
+}
+
+export function createCard(text, listId) {
+    return (dispatch, getState) => {
+        const boardId = getState().board.id;
+        const collectionRef = firebase.database().ref(`boards/${boardId}/lists/${listId}/cards`);
+        const cardRef = collectionRef.push();
+        const cardId = cardRef.key;
+        const newCard = {
+            id: cardId,
+            text: text
+        }
+
+        cardRef.set(newCard)
+            .then(() => {
+                dispatch({
+                    type: CREATE_CARD,
+                    payload: { 
+                        card: newCard,
+                        listId: listId
+                    }
                 })
             })
     }
