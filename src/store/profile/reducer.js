@@ -8,7 +8,7 @@ import {
 
 const INITIAL_STATE = {
     user: null,
-    boards: []
+    boards: null
 }
 
 export default produce((state = INITIAL_STATE, action) => {

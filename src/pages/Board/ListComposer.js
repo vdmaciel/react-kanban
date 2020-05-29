@@ -72,6 +72,7 @@ export default function ListComposer() {
 
     function handleSubmit(){
         dispatch(createList(listName));
+        setListName("");
         toggleModal();
     }
 

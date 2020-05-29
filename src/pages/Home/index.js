@@ -5,6 +5,7 @@ import { fetchUserBoards } from "../../store/profile/actions";
 import history from "../../services/history";
 
 import BoardComposer from "./BoardComposer";
+import FullPageSpinner from "../../components/FullPageSpinner";
 
 const Container = styled.div`
     height: 100%;
@@ -47,6 +48,8 @@ export default function Home() {
     function navigateToBoard(id){
         history.push("/board/" + id);
     }
+
+    if(!boards) return <FullPageSpinner/>
 
     return (
         <Container>

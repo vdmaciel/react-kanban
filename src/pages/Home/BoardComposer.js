@@ -65,6 +65,7 @@ export default function BoardComposer() {
     function handleSubmit(e){
         e.preventDefault();
         dispatch(createBoard(boardName));
+        setBoardName("");
         toggleModal();
     }
 
