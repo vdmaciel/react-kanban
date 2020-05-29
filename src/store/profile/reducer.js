@@ -1,5 +1,5 @@
 import produce from "immer";
-import { LOGIN } from "../auth/types";
+import { LOGIN, SIGN_OUT } from "../auth/types";
 import {
     CREATE_BOARD,
     SET_USER_BOARDS,
@@ -17,6 +17,12 @@ export default produce((state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 user: action.payload.user
+            }
+        case SIGN_OUT: 
+            return {
+                ...state,
+                user: null,
+                board: null
             }
         case SET_USER_BOARDS:
             return {

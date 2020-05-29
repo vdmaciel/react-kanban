@@ -1,4 +1,5 @@
 import produce from "immer";
+import { SIGN_OUT } from "../auth/types";
 import {
     SET_CURRENT_BOARD,
     CREATE_LIST,
@@ -14,6 +15,8 @@ const INITIAL_STATE = null;
 
 export default produce((state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case SIGN_OUT:
+            return null;
         case SET_CURRENT_BOARD:
             return action.payload.board;
         case CREATE_LIST: {
