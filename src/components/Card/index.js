@@ -64,7 +64,7 @@ export default class Card extends React.Component {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                     >
-                        <p>Card Text</p>
+                        <p>{ cardData.text }</p>
                         <EditButton>
                             <FaEdit />
                         </EditButton>
