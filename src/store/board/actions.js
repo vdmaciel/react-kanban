@@ -7,6 +7,8 @@ import {
     CREATE_CARD,
     MOVE_LIST,
     MOVE_CARD,
+    DELETE_CARD,
+    EDIT_CARD,
 } from "./types";
 
 export function fetchBoard(boardId) {
@@ -92,7 +94,38 @@ export function createCard(text, listId) {
     }
 }
 
-export function moveCard(originListId, targetListId, originCardIndex, targetCardIndex){
+export function deleteCard(cardIndex, listIndex) {
+    return (dispatch, getState) => {
+        dispatch({
+            type: DELETE_CARD,
+            payload: {
+                cardIndex,
+                listIndex
+            }
+        })
+
+        const board = getState().board;
+        firebase.database().ref("/boards").child(board.id).set(board);
+    }
+}
+
+export function editCard(cardText, cardIndex, listIndex) {
+    return (dispatch, getState) => {
+        dispatch({
+            type: EDIT_CARD,
+            payload: {
+                cardText,
+                cardIndex,
+                listIndex
+            }
+        })
+
+        const board = getState().board;
+        firebase.database().ref("/boards").child(board.id).set(board);
+    }
+}
+
+export function moveCard(originListId, targetListId, originCardIndex, targetCardIndex) {
     return (dispatch, getState) => {
         dispatch({
             type: MOVE_CARD,

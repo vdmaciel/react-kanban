@@ -2,6 +2,9 @@ import React from 'react'
 import styled from "styled-components";
 import Modal from "styled-react-modal";
 import TextareaAutosize from "react-textarea-autosize";
+import { connect } from "react-redux";
+
+import { editCard, deleteCard } from "../../store/board/actions";
 
 const Container = styled.div`
     position: absolute;
@@ -15,10 +18,10 @@ const Container = styled.div`
 `;
 
 const StyledTextareaAutosize = styled(TextareaAutosize)`
-    padding: 10px 18px;
+    padding: 10px 10px;
     border: 0;
     border-radius: 4px;
-    font-size: 15px;
+    font-size: 16px;
     resize: none;
     color: #444;
     box-shadow: 0 0 3px 2px rgb(50, 184, 72);
@@ -56,10 +59,29 @@ class CardEditor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            text: props.text
+            text: props.cardData.text
         }
     }
 
+    closeEditor = () => {
+        const { toggleEditor, cardData } = this.props;
+        this.setState({ text: cardData.text });
+        toggleEditor();
+    }
+
+    onChangeText = e => this.setState({ text: e.target.value });
+
+    handleDeleteCard = () => {
+        const { dispatch, cardIndex, listIndex } = this.props;
+        dispatch(deleteCard(cardIndex, listIndex));
+    }
+
+    handleEditCard = () => {
+        const { dispatch, cardIndex, listIndex, toggleEditor } = this.props;
+        const { text } = this.state;
+        dispatch(editCard(text, cardIndex, listIndex));
+        toggleEditor();
+    }
 
     render() {
         const { isOpen, toggleEditor, cardElement } = this.props;
@@ -83,14 +105,16 @@ class CardEditor extends React.Component {
                 >
                     <StyledTextareaAutosize
                         autoFocus
+                        value={this.state.text}
+                        onChange={this.onChangeText}
                         style={{
                             height: cardSize.height,
                             width: cardSize.width
                         }}
                     />
                     <EditorOptions>
-                        <li>Save</li>
-                        <li>Delete Card</li>
+                        <li onClick={this.handleEditCard}>Save</li>
+                        <li onClick={this.handleDeleteCard}>Delete Card</li>
                     </EditorOptions>
                 </Container>
             </Modal>
@@ -98,4 +122,4 @@ class CardEditor extends React.Component {
     }
 }
 
-export default CardEditor;
+export default connect()(CardEditor);

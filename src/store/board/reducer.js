@@ -5,7 +5,9 @@ import {
     DELETE_LIST,
     CREATE_CARD,
     MOVE_LIST,
-    MOVE_CARD
+    MOVE_CARD,
+    DELETE_CARD,
+    EDIT_CARD
 } from "./types";
 
 const INITIAL_STATE = null;
@@ -33,6 +35,16 @@ export default produce((state = INITIAL_STATE, action) => {
         case CREATE_CARD: {
             const listIndex = state.lists.findIndex(list => list.id === action.payload.listId);
             state.lists[listIndex].cards.push(action.payload.card);
+            break;
+        }
+        case DELETE_CARD: {
+            const { cardIndex, listIndex } = action.payload;
+            state.lists[listIndex].cards.splice(cardIndex, 1);
+            break;
+        }
+        case EDIT_CARD: {
+            const { cardIndex, listIndex, cardText } = action.payload;
+            state.lists[listIndex].cards[cardIndex].text = cardText;
             break;
         }
         case MOVE_CARD: {

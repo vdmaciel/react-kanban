@@ -50,7 +50,7 @@ export default class Card extends React.Component {
     toggleEditor = () => this.setState({ isEditorOpened: !this.state.isEditorOpened });
 
     render() {
-        const { cardData, cardIndex } = this.props;
+        const { cardData, cardIndex, listIndex } = this.props;
         const { isEditorOpened } = this.state;
         return (
             <Draggable draggableId={cardData.id} index={cardIndex}>
@@ -72,6 +72,9 @@ export default class Card extends React.Component {
                             isOpen={isEditorOpened}
                             toggleEditor={this.toggleEditor}
                             cardElement={this.ref}
+                            cardData={cardData}
+                            cardIndex={cardIndex}
+                            listIndex={listIndex}
                         />
                     </Container>
                 )}

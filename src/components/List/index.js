@@ -100,7 +100,12 @@ export default function List({ listData, listIndex }) {
                         {provided => (
                             <CardList ref={provided.innerRef}>
                                 {listData.cards.map((card, index) => (
-                                    <Card key={card.id} cardData={card} cardIndex={index} />
+                                    <Card 
+                                        key={card.id} 
+                                        cardData={card} 
+                                        cardIndex={index} 
+                                        listIndex={listIndex} 
+                                    />
                                 ))}
                                 {provided.placeholder}
                             </CardList>
