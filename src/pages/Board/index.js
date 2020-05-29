@@ -94,7 +94,7 @@ export default function Board() {
 
     useEffect(() => {
         dispatch(fetchBoard(boardId));
-    }, []);
+    }, [dispatch, boardId]);
 
     if (!board) return <FullPageSpinner />
 

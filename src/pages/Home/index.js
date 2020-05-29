@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserBoards } from "../../store/profile/actions";
@@ -42,7 +42,7 @@ export default function Home() {
 
     useEffect(() => {
         dispatch(fetchUserBoards());
-    }, [])
+    }, [dispatch])
 
     function navigateToBoard(id){
         history.push("/board/" + id);

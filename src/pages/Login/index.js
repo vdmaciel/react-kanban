@@ -137,8 +137,18 @@ export default function Login() {
         <Container>
             <Form>
                 <Title>Login</Title>
-                <Input type="email" placeholder="e-mail" />
-                <Input type="passoword" placeholder="password" />
+                <Input 
+                    type="email"
+                    placeholder="e-mail"
+                    value={email}
+                    onChange={setEmail}    
+                />
+                <Input 
+                    type="passoword" 
+                    placeholder="password"
+                    value={password}
+                    onChange={setPassword}
+                />
                 <SubmitButton onClick={handleLogin}>Login</SubmitButton>
                 <Separator><span>OR</span></Separator>
                 <LoginWithGoogle onClick={handleLoginWithGoogle}>
