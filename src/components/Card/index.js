@@ -1,8 +1,9 @@
 import React from 'react'
 import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
-
 import { FaEdit } from "react-icons/fa";
+
+import CardEditor from "./CardEditor";
 
 const EditButton = styled.button`
     position: absolute;
@@ -41,14 +42,21 @@ const Container = styled.div`
 export default class Card extends React.Component {
     constructor(props) {
         super(props);
+        this.state={
+            isEditorOpened: false
+        }
     }
+
+    toggleEditor = () => this.setState({ isEditorOpened: !this.state.isEditorOpened });
 
     render() {
         const { cardData, cardIndex } = this.props;
+        const { isEditorOpened } = this.state;
         return (
             <Draggable draggableId={cardData.id} index={cardIndex}>
                 {provided => (
                     <Container
+                        onClick={this.toggleEditor}
                         ref={ref => {
                             provided.innerRef(ref);
                             this.ref = ref;
@@ -57,7 +65,14 @@ export default class Card extends React.Component {
                         {...provided.dragHandleProps}
                     >
                         <p>Card Text</p>
-                        <EditButton><FaEdit /></EditButton>
+                        <EditButton>
+                            <FaEdit />
+                        </EditButton>
+                        <CardEditor
+                            isOpen={isEditorOpened}
+                            toggleEditor={this.toggleEditor}
+                            cardElement={this.ref}
+                        />
                     </Container>
                 )}
             </Draggable>
