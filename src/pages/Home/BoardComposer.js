@@ -82,6 +82,7 @@ export default function BoardComposer() {
                 >
                     <Form>
                         <Input
+                            autoFocus
                             type="text"
                             placeholder="Board Name"
                             value={boardName}

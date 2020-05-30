@@ -89,6 +89,7 @@ export default function ListComposer() {
                 >
                     <Form>
                         <Input 
+                            autoFocus
                             type="text" 
                             placeholder="List name"
                             value={listName}
