@@ -7,6 +7,7 @@ import { createList } from "../../store/board/actions";
 const StyledModal = Modal.styled({
     display: "flex",
     justifyContent: "center",
+    marginTop: "70px"
 });
 
 const Form = styled.form`

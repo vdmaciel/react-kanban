@@ -7,6 +7,7 @@ import { createBoard } from "../../store/profile/actions";
 const StyledModal = Modal.styled({
     display: "flex",
     justifyContent: "center",
+    marginTop: "70px"
 })
 
 const Form = styled.form`

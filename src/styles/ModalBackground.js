@@ -9,4 +9,5 @@ export default styled.div`
   bottom: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.3);
+  padding: 15px;
 `;
