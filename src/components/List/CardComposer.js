@@ -64,6 +64,7 @@ export default function CardComposer({ listId }) {
 
     function handleSubmit(){
         dispatch(createCard(cardText, listId));
+        setCardText("");
         toggleComposer();
     }
 
