@@ -31,9 +31,15 @@ const Container = styled.div`
     border-radius: 4px;
     border-bottom: 1px solid #666;
     margin-bottom: 10px;
+    overflow: hidden;
+    word-break: break-all;
+    hyphens: auto;
 
     &:hover { 
-        ${EditButton}{ color: #666; }
+        ${EditButton}{ 
+            background-color: hsla(360, 100%, 100%, 75%);
+            color: #666;
+        }
     }
 `;
 

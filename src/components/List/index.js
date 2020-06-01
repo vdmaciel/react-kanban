@@ -13,7 +13,7 @@ const Container = styled.div`
     position: relative;
     background-color: hsl(0,0%,92%);
     width: 280px;
-    padding: 10px;
+    padding: 10px 0px 10px 10px;
     flex-shrink: 0;
     margin-right: 10px;
     border-radius: 4px;
@@ -43,7 +43,9 @@ const MenuButton = styled.button`
 `;
 
 const CardList = styled.div`
-    padding: 5px 0;
+    padding: 5px 10px 5px 0;
+    overflow-y: auto;
+    max-height: 70vh;
 `;
 
 const Menu = styled.ul`
