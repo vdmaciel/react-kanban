@@ -2,18 +2,18 @@ import React, { useState } from 'react'
 import styled from "styled-components";
 import { FaEllipsisH } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { Draggable, Droppable } from "react-beautiful-dnd";
+import { Draggable } from "react-beautiful-dnd";
 
 import { deleteList } from "../../store/board/actions";
 
-import Card from "../Card";
+import CardList from "./CardList";
 import CardComposer from "./CardComposer";
 
 const Container = styled.div`
     position: relative;
     background-color: hsl(0,0%,92%);
     width: 300px;
-    padding: 5px;
+    padding: 10px 5px 10px 10px;
     flex-shrink: 0;
     margin-right: 10px;
     border-radius: 4px;
@@ -42,12 +42,6 @@ const MenuButton = styled.button`
     &:hover { background-color: hsl(0,0%,82%); }
 `;
 
-const CardList = styled.div`
-    padding: 5px 5px 5px 0;
-    overflow-y: auto;
-    max-height: 70vh;
-    margin-bottom: 10px;
-`;
 
 const Menu = styled.ul`
     position: absolute;
@@ -99,21 +93,11 @@ export default function List({ listData, listIndex }) {
                             </Menu>
                         )}
                     </ListHeader>
-                    <Droppable droppableId={listData.id} type="CARD">
-                        {provided => (
-                            <CardList ref={provided.innerRef}>
-                                {listData.cards.map((card, index) => (
-                                    <Card 
-                                        key={card.id} 
-                                        cardData={card} 
-                                        cardIndex={index} 
-                                        listIndex={listIndex} 
-                                    />
-                                ))}
-                                {provided.placeholder}
-                            </CardList>
-                        )}
-                    </Droppable>
+                    <CardList
+                        cards={listData.cards} 
+                        listId={listData.id} 
+                        listIndex={listIndex} 
+                    />
                     <CardComposer listId={listData.id} />
                 </Container>
             )}
