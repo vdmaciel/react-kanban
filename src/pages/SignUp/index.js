@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { requestSignUp } from "../../store/auth/actions";
 
 import authBackground from "../../assets/auth-bg.jpg";
 
@@ -68,15 +70,41 @@ const AuthLink = styled.div`
     text-align: center;
 `;
 
-export default function Login() {
+export default function SignUp() {
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const dispatch = useDispatch();
+
+    function handleSignUp(e){
+        e.preventDefault();
+        dispatch(requestSignUp(username, email, password));
+    }
+
     return (
         <Container>
             <Form>
                 <Title>Sign Up</Title>
-                <Input type="text" placeholder="username" />
-                <Input type="email" placeholder="e-mail" />
-                <Input type="passoword" placeholder="password" />
-                <SubmitButton>Sign Up</SubmitButton>
+                <Input 
+                    type="text" 
+                    placeholder="username" 
+                    value={username}
+                    onChange={e => setUsername(e.target.value)}
+                />
+                <Input 
+                    type="email" 
+                    placeholder="e-mail" 
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                />
+                <Input 
+                    type="password" 
+                    placeholder="password" 
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                />
+                <SubmitButton onClick={handleSignUp}>Sign Up</SubmitButton>
                 <AuthLink>
                     Already have an account? <Link to="/login"><strong>Login</strong></Link>
                 </AuthLink>

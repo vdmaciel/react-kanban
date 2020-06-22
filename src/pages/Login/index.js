@@ -141,13 +141,13 @@ export default function Login() {
                     type="email"
                     placeholder="e-mail"
                     value={email}
-                    onChange={setEmail}    
+                    onChange={e => setEmail(e.target.value)}    
                 />
                 <Input 
                     type="passoword" 
                     placeholder="password"
                     value={password}
-                    onChange={setPassword}
+                    onChange={e => setPassword(e.target.value)}
                 />
                 <SubmitButton onClick={handleLogin}>Login</SubmitButton>
                 <Separator><span>OR</span></Separator>

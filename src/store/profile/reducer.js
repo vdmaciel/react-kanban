@@ -22,7 +22,7 @@ export default produce((state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 user: null,
-                board: null
+                boards: null
             }
         case SET_USER_BOARDS:
             return {
